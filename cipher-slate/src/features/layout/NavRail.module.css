@@ -1,0 +1,56 @@
+.rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.logo {
+  color: var(--primary);
+  font-family: 'Manrope', sans-serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin-bottom: var(--spacing-8);
+}
+
+.iconGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+  align-items: center;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.iconBtn {
+  color: var(--on-surface-variant);
+  transition: color 0.2s ease, opacity 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.iconBtn:hover {
+  color: var(--on-surface);
+}
+
+.iconBtn.active {
+  color: var(--primary);
+}
+
+.monogram {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  background-color: var(--surface-variant);
+  color: var(--on-surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 600;
+  margin-top: var(--spacing-6);
+}

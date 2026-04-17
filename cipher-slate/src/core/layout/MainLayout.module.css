@@ -1,0 +1,49 @@
+.container {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background-color: var(--surface);
+}
+
+.navRail {
+  width: 64px;
+  min-width: 64px;
+  background-color: var(--surface-container-lowest);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: var(--spacing-4) 0;
+}
+
+.sidebar {
+  width: 320px;
+  min-width: 320px;
+  background-color: var(--surface-container-low);
+  display: flex;
+  flex-direction: column;
+  /* Next element background provides tonal separation */
+}
+
+.mainStage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background-color: var(--surface);
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+  .navRail {
+    display: none;
+  }
+  .sidebar {
+    width: 100%;
+  }
+  .mainStage {
+    display: none;
+  }
+}

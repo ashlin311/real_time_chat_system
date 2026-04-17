@@ -1,0 +1,163 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(8, 10, 15, 0.85);
+  backdrop-filter: blur(10px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  padding: 32px;
+  border-radius: 12px;
+  max-width: 480px;
+  width: 100%;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.modal h2 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  color: var(--text-primary);
+}
+
+.modal p {
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.input {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border-color);
+  padding: 12px;
+  border-radius: 6px;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+  font-family: monospace;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--accent-blue);
+  background: rgba(29, 78, 216, 0.1);
+}
+
+.button {
+  width: 100%;
+  padding: 12px;
+  background: var(--accent-blue);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.button:hover {
+  background: #2563eb;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.icon {
+  color: var(--accent-blue);
+  flex-shrink: 0;
+}
+
+.description {
+  color: var(--on-surface-variant);
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.inputGroup {
+  margin-bottom: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.inputIcon {
+  position: absolute;
+  left: 12px;
+  color: var(--on-surface-variant);
+  pointer-events: none;
+}
+
+.nameInput {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--outline-variant);
+  padding: 12px 12px 12px 38px;
+  border-radius: 8px;
+  color: white;
+  font-size: 1rem;
+  transition: border-color 0.2s, background 0.2s;
+  box-sizing: border-box;
+}
+
+.nameInput:focus {
+  outline: none;
+  border-color: var(--accent-blue);
+  background: rgba(0, 194, 255, 0.06);
+}
+
+.nameInput::placeholder {
+  color: var(--on-surface-variant);
+}
+
+.nameHint {
+  font-size: 0.75rem;
+  color: var(--on-surface-variant);
+  padding-left: 4px;
+}
+
+.actions {
+  margin-top: 1rem;
+}
+
+.connectBtn {
+  width: 100%;
+  padding: 14px;
+  background: var(--accent-blue);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background 0.2s, opacity 0.2s;
+  letter-spacing: 1px;
+}
+
+.connectBtn:hover:not(:disabled) {
+  background: #00a3d9;
+}
+
+.connectBtn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+

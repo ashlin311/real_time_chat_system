@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat WebSocket Tester</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+    <style>
+        body { font-family: sans-serif; max-width: 600px; margin: 40px auto; padding: 20px; }
+        .row { margin-bottom: 10px; }
+        input[type="text"] { width: 100%; padding: 8px; box-sizing: border-box; }
+        button { padding: 10px 20px; background: #007bff; color: white; border: none; cursor: pointer; margin-right: 5px; }
+        #messages { border: 1px solid #ccc; height: 300px; overflow-y: auto; padding: 10px; background: #f9f9f9; margin-bottom: 10px;}
+        .system { color: #888; font-style: italic; }
+        .rest-panel { background: #eee; padding: 15px; margin-bottom: 20px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h2>Chat Backend Tester</h2>
+
+    <div class="row">
+        <label><b>1. JWT Access Token (From Postman):</b></label>
+        <input type="text" id="token" placeholder="Paste eyJhbGciOiJIUzI1...">
+    </div>
+    
+    <div class="rest-panel">
+        <label><b>2. Room ID (Must be a real database UUID):</b></label>
+        <div style="display: flex; gap: 5px; margin-top: 5px; margin-bottom: 5px;">
+            <input type="text" id="roomId" placeholder="Enter UUID or click Create..." style="flex:1;">
+        </div>
+        <div>
+            <button onclick="createRoom()" style="background:#28a745">1. Create New Room</button>
+            <button onclick="joinRoom()" style="background:#17a2b8">2. Join Existing Room</button>
+        </div>
+        <small style="color:#666">You must Join a room before you are allowed to send messages in it!</small>
+    </div>
+
+    <div class="row">
+        <button onclick="connect()">3. Connect to WebSocket</button>
+        <button onclick="disconnect()" style="background:#dc3545">Disconnect</button>
+    </div>
+
+    <div class="row">
+        <b>Messages:</b>
+        <div id="messages"></div>
+    </div>
+
+    <div class="row" style="display:flex; gap:10px;">
+        <input type="text" id="chatMessage" placeholder="Type a message..." style="flex:1;">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <script>
+        var stompClient = null;
+
+        function log(message, isSystem = true) {
+            var messagesDiv = document.getElementById('messages');
+            var p = document.createElement('p');
+            p.innerText = message;
+            if (isSystem) p.classList.add("system");
+            messagesDiv.appendChild(p);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+
+        async function createRoom() {
+            var token = document.getElementById('token').value.trim();
+            if (!token) { alert("Paste a JWT token first!"); return; }
+            
+            log("Creating room via POST /api/chat/rooms...");
+            let res = await fetch("http://localhost:8080/api/chat/rooms", {
+                method: "POST",
+                headers: { "Content-Type": "application/json", "Authorization": "Bearer " + token },
+                body: JSON.stringify({ name: "Demo Room", type: "GROUP" })
+            });
+
+            if(res.ok) {
+                let data = await res.json();
+                document.getElementById('roomId').value = data.id;
+                log("✅ Room Created! UUID: " + data.id);
+            } else {
+                log("❌ Failed to create room: " + res.status);
+            }
+        }
+
+        async function joinRoom() {
+            var token = document.getElementById('token').value.trim();
+            var roomId = document.getElementById('roomId').value.trim();
+            if (!token || !roomId) { alert("Missing JWT or Room ID!"); return; }
+
+            log("Joining room via POST /api/chat/rooms/" + roomId + "/join...");
+            let res = await fetch("http://localhost:8080/api/chat/rooms/" + roomId + "/join", {
+                method: "POST",
+                headers: { "Authorization": "Bearer " + token }
+            });
+
+            if(res.ok) {
+                log("✅ Successfully joined room!");
+            } else {
+                log("❌ Failed to join room: " + res.status);
+            }
+        }
+
+        function connect() {
+            var token = document.getElementById('token').value.trim();
+            var roomId = document.getElementById('roomId').value.trim();
+
+            if (!token || !roomId) { alert("Missing JWT or Room ID!"); return; }
+
+            var socket = new SockJS('http://localhost:8080/ws');
+            stompClient = Stomp.over(socket);
+
+            log("Attempting WebSocket connect...");
+
+            stompClient.connect({'Authorization': 'Bearer ' + token}, function (frame) {
+                log("Connected: " + frame);
+                
+                var topic = '/topic/chat/' + roomId;
+                stompClient.subscribe(topic, function (messageOutput) {
+                    var body = JSON.parse(messageOutput.body);
+                    log("📩 Received: " + body.content, false);
+                });
+                
+                log("Subscribed to " + topic);
+                
+            }, function(error) {
+                log("Connection error: " + error);
+            });
+        }
+
+        function disconnect() {
+            if (stompClient !== null) {
+                stompClient.disconnect();
+            }
+            log("Disconnected");
+        }
+
+        function sendMessage() {
+            var token = document.getElementById('token').value.trim();
+            var roomId = document.getElementById('roomId').value.trim();
+            var messageInput = document.getElementById('chatMessage');
+            
+            if (stompClient === null || !stompClient.connected) {
+                alert("You are not connected!");
+                return;
+            }
+
+            var chatPayload = {
+                roomId: roomId,
+                content: messageInput.value,
+                contentType: "TEXT"
+            };
+
+            var destinationString = "/app/chat/" + roomId + "/send";
+            stompClient.send(destinationString, {'Authorization': 'Bearer ' + token}, JSON.stringify(chatPayload));
+            
+            log("📤 Sent: " + messageInput.value, false);
+            messageInput.value = ""; 
+        }
+    </script>
+</body>
+</html>

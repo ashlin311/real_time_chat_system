@@ -1,0 +1,79 @@
+.container {
+  display: flex;
+  align-items: center;
+  border-radius: var(--radius-full);
+  padding: var(--spacing-2) var(--spacing-2) var(--spacing-2) var(--spacing-4);
+  gap: var(--spacing-3);
+  transition: box-shadow 0.2s ease;
+}
+
+.container:focus-within {
+  box-shadow: 0 0 0 2px var(--surface-variant), 0 0 20px rgba(162, 201, 255, 0.05);
+}
+
+.attachBtn {
+  color: var(--on-surface-variant);
+  font-size: 1.5rem;
+  font-weight: 300;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.attachBtn:hover {
+  background-color: var(--surface-variant);
+  color: var(--on-surface);
+}
+
+.input {
+  flex: 1;
+  font-size: 1rem;
+  color: var(--on-surface);
+}
+
+.input::placeholder {
+  color: var(--on-surface-variant);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+
+.emojiBtn {
+  color: var(--on-surface-variant);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-2);
+}
+
+.emojiBtn:hover {
+  color: var(--on-surface);
+}
+
+.sendBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, var(--primary), var(--primary-container));
+  color: var(--on-primary-container);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(66, 154, 247, 0.3);
+  transition: opacity 0.2s ease;
+}
+
+.sendBtn:hover {
+  opacity: 0.9;
+}
+
+.sendIcon {
+  margin-left: -2px; /* optical alignment */
+}

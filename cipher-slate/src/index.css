@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Surface colors */
+  --surface: #0c141f;
+  --surface-container-lowest: #070f19;
+  --surface-container-low: #141c27;
+  --surface-container: #1a222d;
+  --surface-container-high: #232a36;
+  --surface-container-highest: #2d3541;
+  --surface-variant: #343f4c;
+  --surface-bright: #1f2834;
+
+  /* Typography Colors */
+  --on-surface: #e2e8f0;
+  --on-surface-variant: #94a3b8;
+
+  /* Primary/Accent */
+  --primary: #a2c9ff;
+  --primary-container: #429af7;
+  --on-primary-container: #ffffff;
+
+  /* Secondary */
+  --secondary: #94a3b8;
+  --secondary-container: #1e293b;
+  --on-secondary-container: #e2e8f0;
+
+  /* Status */
+  --error: #f87171;
+  --error-container: #7f1d1d;
+
+  /* Outlines */
+  --outline: #475569;
+  --outline-variant: rgba(71, 85, 105, 0.15); /* Ghost border */
+
+  /* Radii */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-full: 9999px;
+
+  /* Spacing */
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.6rem;
+  --spacing-4: 1rem;
+  --spacing-5: 1.1rem;
+  --spacing-6: 1.5rem;
+  --spacing-8: 2rem;
+  --spacing-12: 3rem;
+  --spacing-16: 4rem;
+
+  font-family: 'Inter', system-ui, sans-serif;
+  color: var(--on-surface);
+  background-color: var(--surface);
+  margin: 0;
+  padding: 0;
+  line-height: 1.5;
+}
+
+h1, h2, h3, h4, .display-font {
+  font-family: 'Manrope', sans-serif;
+}
+
+body {
+  margin: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+/* Base utility classes */
+.glass {
+  background: rgba(31, 40, 52, 0.85); /* surface-container-high with opacity */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  will-change: transform;
+}
+
+.ambient-shadow {
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.24);
+}
+
+/* Reset buttons and inputs */
+button {
+  background: none;
+  border: none;
+  color: inherit;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 0;
+}
+
+input {
+  background: none;
+  border: none;
+  color: inherit;
+  font-family: inherit;
+  outline: none;
+}

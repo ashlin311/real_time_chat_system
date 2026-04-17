@@ -1,0 +1,210 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(7, 15, 25, 0.8);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.modal {
+  background-color: var(--surface-container-highest);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-8);
+  width: 90%;
+  max-width: 420px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
+}
+
+.shake {
+  animation: horizontalShaking 0.4s;
+}
+
+@keyframes horizontalShaking {
+  0% { transform: translateX(0) }
+  25% { transform: translateX(5px) }
+  50% { transform: translateX(-5px) }
+  75% { transform: translateX(5px) }
+  100% { transform: translateX(0) }
+}
+
+.closeBtn {
+  position: absolute;
+  top: var(--spacing-4);
+  right: var(--spacing-4);
+  color: var(--on-surface-variant);
+  transition: color 0.2s;
+}
+
+.closeBtn:hover {
+  color: var(--on-surface);
+}
+
+.iconWrapper {
+  width: 48px;
+  height: 48px;
+  background-color: var(--surface-variant);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  margin-bottom: var(--spacing-4);
+}
+
+.modal h2 {
+  font-size: 1.5rem;
+  margin-bottom: var(--spacing-2);
+}
+
+.subtitle {
+  color: var(--on-surface-variant);
+  font-size: 0.875rem;
+  margin-bottom: var(--spacing-6);
+  text-align: center;
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--on-surface-variant);
+  letter-spacing: 0.05em;
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  width: 100%;
+  background-color: var(--surface);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-3) var(--spacing-12) var(--spacing-3) var(--spacing-4);
+  color: var(--on-surface);
+  font-family: inherit;
+  font-size: 1rem;
+  transition: box-shadow 0.2s;
+}
+
+.input:focus {
+  box-shadow: 0 0 0 2px var(--surface-variant);
+}
+
+.inputIcon {
+  position: absolute;
+  right: var(--spacing-4);
+  color: var(--on-surface-variant);
+}
+
+.errorText {
+  color: var(--error);
+  font-size: 0.75rem;
+}
+
+.submitBtn {
+  background: linear-gradient(135deg, var(--primary), var(--primary-container));
+  color: var(--on-primary-container);
+  padding: var(--spacing-3);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  margin-top: var(--spacing-2);
+  transition: opacity 0.2s ease;
+}
+
+.submitBtn:not(:disabled):hover {
+  opacity: 0.9;
+}
+
+.actions {
+  display: flex;
+  gap: var(--spacing-3);
+  margin-top: var(--spacing-4);
+  width: 100%;
+}
+
+.cancelBtn {
+  flex: 1;
+  background: transparent;
+  color: var(--on-surface-variant);
+  border: 1px solid var(--outline-variant);
+  padding: var(--spacing-3);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.cancelBtn:hover {
+  background: var(--surface-variant);
+  color: var(--on-surface);
+}
+
+.createBtn {
+  flex: 1;
+  background: linear-gradient(135deg, var(--primary), var(--primary-container));
+  color: var(--on-primary-container);
+  border: none;
+  padding: var(--spacing-3);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  transition: opacity 0.2s ease;
+}
+
+.createBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.createBtn:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.pasteBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  color: var(--on-surface-variant);
+  font-size: 0.875rem;
+  padding: var(--spacing-2);
+}
+
+.pasteBtn:hover {
+  color: var(--on-surface);
+}
+
+.footer {
+  margin-top: var(--spacing-6);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  color: var(--on-surface-variant);
+  font-size: 0.75rem;
+}
+
+.shieldIcon {
+  color: var(--primary);
+}

@@ -1,0 +1,83 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+
+.header {
+  padding: var(--spacing-8) var(--spacing-6) var(--spacing-4);
+}
+
+.header h2 {
+  font-size: 1.5rem;
+  margin: 0;
+  font-weight: 600;
+}
+
+.roomList {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  padding: 0 var(--spacing-4);
+  gap: var(--spacing-2);
+}
+
+.roomItem {
+  text-align: left;
+  padding: var(--spacing-4);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+  transition: background-color 0.1s ease;
+}
+
+.roomItem:hover {
+  background-color: var(--surface-bright);
+}
+
+.roomItem.active {
+  background-color: var(--surface-variant);
+}
+
+.roomHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.roomName {
+  font-weight: 600;
+  color: var(--on-surface);
+}
+
+.roomTime {
+  font-size: 0.6875rem; /* label-sm */
+  color: var(--on-surface-variant);
+}
+
+.roomPreview {
+  font-size: 0.875rem; /* body-md basically */
+  color: var(--on-surface-variant);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.footer {
+  padding: var(--spacing-4);
+}
+
+.newChatBtn {
+  width: 100%;
+  padding: var(--spacing-3);
+  border-radius: var(--radius-md);
+  background: var(--surface-variant); /* Changed to use primary gradient later, for now surface-variant */
+  color: var(--primary);
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

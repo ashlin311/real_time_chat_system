@@ -1,0 +1,74 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  max-width: 75%;
+  align-self: flex-start;
+}
+
+.wrapper.isOwn {
+  align-self: flex-end;
+}
+
+.header {
+  margin-bottom: var(--spacing-1);
+  padding: 0 var(--spacing-2);
+}
+
+.sender {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--primary); /* deterministic coloring logic can apply later */
+}
+
+.bubble {
+  padding: var(--spacing-4);
+  border-radius: var(--radius-lg);
+  font-size: 1rem;
+  line-height: 1.5;
+  background-color: var(--secondary-container);
+  color: var(--on-secondary-container);
+  border-bottom-left-radius: 0;
+  /* Ambient depth */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.wrapper.isOwn .bubble {
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+  border-bottom-left-radius: var(--radius-lg);
+  border-bottom-right-radius: 0;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end; /* right align the timestamp for both? actually design usually has it below the bubble right-aligned */
+  gap: var(--spacing-1);
+  margin-top: var(--spacing-1);
+  padding: 0 var(--spacing-2);
+}
+
+.wrapper.isOwn .meta {
+  justify-content: flex-end;
+}
+
+.time {
+  font-size: 0.6875rem;
+  color: var(--on-surface-variant);
+}
+
+.status {
+  color: var(--on-surface-variant);
+  display: flex;
+  align-items: center;
+}
+
+.status.failed {
+  color: var(--error);
+}
+
+.retryBtn {
+  font-size: 0.6875rem;
+  cursor: pointer;
+  text-decoration: underline;
+}
