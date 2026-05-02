@@ -18,7 +18,7 @@ class StompClientService {
     this.connectionAttempts = 0;
 
     this.client = new Client({
-      brokerURL: 'ws://localhost:8080/ws',
+      brokerURL: `${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}/ws`,
       connectHeaders: {
         Authorization: `Bearer ${token}`
       },

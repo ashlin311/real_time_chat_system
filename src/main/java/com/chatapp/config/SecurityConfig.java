@@ -31,12 +31,10 @@ public class SecurityConfig {
                 .headers(headers -> headers.frameOptions(f -> f.sameOrigin()))
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(
-                                "/api/auth/**",
-                                "/ws/**",
-                                "/actuator/health"
-                        ).permitAll()
-                        .anyRequest().authenticated()
+                        // Only these paths require a JWT token
+                        .requestMatchers("/api/chat/**").authenticated()
+                        // Everything else is public (frontend files, auth endpoint, websocket, health)
+                        .anyRequest().permitAll()
                 )
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();

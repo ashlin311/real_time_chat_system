@@ -65,7 +65,7 @@ export const useRealtimeSync = () => {
             if (!currentToken || rooms.length === 0) return;
             rooms.forEach(roomId => {
                 navigator.sendBeacon(
-                    `http://localhost:8080/api/chat/rooms/${roomId}/leave`,
+                    `/api/chat/rooms/${roomId}/leave`,
                     new Blob([JSON.stringify({ token: currentToken })], { type: 'application/json' })
                 );
             });

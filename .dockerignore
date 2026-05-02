@@ -1,0 +1,7 @@
+target/
+cipher-slate/node_modules/
+cipher-slate/dist/
+.idea/
+.git/
+*.iml
+*.log
