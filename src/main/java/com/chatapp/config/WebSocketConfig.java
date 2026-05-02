@@ -42,16 +42,16 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     }
 
     public void configureWebSocketTransport(WebSocketTransportRegistration registration) {
-        registration.setMessageSizeLimit(20 * 1024 * 1024);       // 20 MB max inbound message
-        registration.setSendBufferSizeLimit(20 * 1024 * 1024);    // 20 MB send buffer per session
-        registration.setSendTimeLimit(20_000);                    // close slow clients after 20s
+        registration.setMessageSizeLimit(128 * 1024);              // 128 KB max inbound message
+        registration.setSendBufferSizeLimit(256 * 1024);            // 256 KB send buffer per session
+        registration.setSendTimeLimit(20_000);                      // close slow clients after 20s
     }
 
     @Override
     public void configureClientInboundChannel(ChannelRegistration registration) {
         registration.taskExecutor()
-                    .corePoolSize(8)
-                    .maxPoolSize(32)
+                    .corePoolSize(2)
+                    .maxPoolSize(8)
                     .keepAliveSeconds(60);
         // Order matters: auth first, then rate limiting
         registration.interceptors(authChannelInterceptor, rateLimitingChannelInterceptor);
@@ -60,8 +60,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void configureClientOutboundChannel(ChannelRegistration registration) {
         registration.taskExecutor()
-                    .corePoolSize(8)
-                    .maxPoolSize(32);
+                    .corePoolSize(2)
+                    .maxPoolSize(8);
     }
     
     @Override
@@ -70,7 +70,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
         com.fasterxml.jackson.databind.ObjectMapper mapper = new com.fasterxml.jackson.databind.ObjectMapper();
         mapper.configure(com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         mapper.getFactory().setStreamReadConstraints(
-            com.fasterxml.jackson.core.StreamReadConstraints.builder().maxStringLength(50_000_000).build()
+            com.fasterxml.jackson.core.StreamReadConstraints.builder().maxStringLength(500_000).build()
         );
         converter.setObjectMapper(mapper);
         messageConverters.add(converter);
@@ -80,8 +80,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Bean
     public ServletServerContainerFactoryBean createWebSocketContainer() {
         ServletServerContainerFactoryBean container = new ServletServerContainerFactoryBean();
-        container.setMaxTextMessageBufferSize(50 * 1024 * 1024); // 50MB frames
-        container.setMaxBinaryMessageBufferSize(50 * 1024 * 1024);
+        container.setMaxTextMessageBufferSize(128 * 1024);   // 128 KB
+        container.setMaxBinaryMessageBufferSize(128 * 1024);  // 128 KB
         return container;
     }
 }
