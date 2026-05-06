@@ -1,4 +1,4 @@
-# 🔐 Cipher Slate
+# 🔐 Real-Time-Chat
 
 **Ephemeral real-time chat — conversations vanish when you leave.**
 
